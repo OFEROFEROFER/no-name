@@ -1,0 +1,47 @@
+
+
+:host{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .page_container{
+        width: 80vh;
+
+        .title{
+            display: flex;
+            align-items: center;
+            
+            gap: 10px;
+        }
+        .poster_container{
+            height: 40vh;
+            display:flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+           
+        }
+    }
+}
+
+.trailer{
+    flex:1;
+    
+}
+
+.image_container{
+    img{
+        width: 100%; height: 100%; object-fit: fill;
+    }
+}
+
+.overview{
+     /* display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical; */
+    overflow: auto;
+    /* white-space: break-spaces;   */
+
+    height: calc(1.5em * 5)
+}

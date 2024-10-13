@@ -1,0 +1,15 @@
+<div class="rating-container">
+    <div  class="star-rating">
+        @for (star of [1,2,3,4,5]; track $index) {
+            @if (star<=ratingByStars) {
+                <mat-icon>star</mat-icon>  
+            } @else if (star<=ratingByStars+.5) {
+                <mat-icon>star_half</mat-icon> 
+            }@else {
+                <mat-icon>star_border</mat-icon>  
+            }      
+        } 
+    
+    </div>
+    ({{votes}})
+</div>

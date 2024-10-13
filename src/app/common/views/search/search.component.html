@@ -1,0 +1,103 @@
+
+ 
+<div class="form" [formGroup]="form">
+  <div class="form-container">
+        <mat-form-field>
+          <input
+          matInput
+          placeholder="type to search"
+          formControlName="input"
+          />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Choose an option</mat-label>
+        <mat-select  formControlName="genre">
+          <mat-option>-- None --</mat-option>
+          @for (genre of genres$|async; track $index) {
+          <mat-option   [value]="genre.id">{{genre.name}}</mat-option>
+         
+          }
+   
+        </mat-select>
+      </mat-form-field>
+      
+  </div>
+
+
+   @if (results$|async; as results) {
+
+   @if (hasError) {
+    <div>oops - some error</div>
+   }
+
+   @if ((form.value.input??"").trim().length>0) {   
+ 
+    @if (results.results.length===0 && !isLoading && !hasError) {
+        <div>empty results</div>
+    }
+
+    @if (!isLoading && results.results.length>0) {
+      
+      <mat-paginator #paginator
+      class="demo-paginator"
+      (page)="handlePageEvent($event)"
+      [length]="results.total_results"
+      [pageSize]="20"
+      [disabled]="false"
+      [showFirstLastButtons]="true"
+     
+      [hidePageSize]="false"
+      [pageIndex]="results.page-1"
+      aria-label="Select page">
+    </mat-paginator>
+
+    <mat-nav-list role="list" class="list">
+      
+
+        @for (link of results.results; track link) {         
+          <mat-list-item>
+            <!-- <button (click)="click()"> -->
+
+            
+            <a matListItemTitle style="display: flex;text-decoration: none;" routerLink="/info" [queryParams]="{ id: link.id}">
+              <!-- Image Container -->
+              <div style="height: calc(1.5em * 5) ; width: 100px; flex-shrink: 0;">
+                <img appFallback [src]="link.poster_path|image" style="width: 100%; height: 100%; object-fit: contain;">
+              </div>
+              
+              <!-- Text Container -->
+              <div style="flex: 1; display: flex; flex-direction: column; padding: 0 10px;">
+                <!-- Title -->
+                
+                  <div class="ellipsis title">
+                    {{ link.title }}
+                  </div>
+
+                  <div class="icons">                                
+                    <app-star-rating [rating]="link.vote_average" [votes]="link.vote_count"></app-star-rating>   
+                    <!-- <mat-icon *ngIf="link.adult" svgIcon="adultsonly"></mat-icon>     -->
+                    <mat-icon class="adult-icon" *ngIf="link.adult">explicit</mat-icon>
+                  </div>
+                
+             
+      
+                <!-- Overview -->
+                <div class="ellipsis">
+                  {{ link.overview }}
+                </div>
+              </div>
+            </a>
+          <!-- </button> -->
+          </mat-list-item>
+        }
+      </mat-nav-list>
+      
+      
+}}
+}
+ @if (isLoading) {
+    <mat-spinner ></mat-spinner>
+ }
+
+</div>

@@ -1,0 +1,21 @@
+@if (info$|async; as info) {
+    
+    <div class="page_container">  
+        <h2>{{info.title}}</h2>
+        
+        
+        <div class="title">
+            <div>{{info.release_date|date:'yyyy'}}</div>
+            <app-star-rating [rating]="info.vote_average" [votes]="info.vote_count"></app-star-rating>
+        </div>
+        <div class="poster_container">            
+            <div class="image_container">
+                <img appFallback [src]="info.poster_path|image"  >   
+            </div>                       
+            <iframe *ngIf="info.videos.results|extractTrailer" class="trailer" [src]="(info.videos.results|extractTrailer|videoUrl) "   frameborder="0" allowfullscreen>
+            </iframe>
+        </div>  
+        <div class="overview">{{info.overview}}</div>
+    </div>
+
+}

@@ -1,0 +1,10 @@
+
+.rating-container{
+
+display: flex;
+.star-rating {
+     
+    color: #ffc107;
+  
+  }
+}
